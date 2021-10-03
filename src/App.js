@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup } from 'react-leaflet';
+import { Icon } from "leaflet";
 import teslaData from './data/tesla.json'
 //once we have api endpoints rename teslaData and tsla to variables more appropriate for plastic
 import './App.css';
@@ -12,6 +13,10 @@ function App() {
 //layers locations
   const center = [34.14418154991984, -118.11822015902482]
 
+  const bottle = new Icon({
+    iconUrl: '/bottle.png',
+    iconSize: [25, 40]
+  });
 
   return (
 
@@ -27,7 +32,7 @@ function App() {
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer name="Black and White">
           <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors <div>Icon made from <a href="http://www.onlinewebfonts.com/icon">Icon Fonts</a> is licensed by CC BY 3.0</div>'
             url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
           />
         </LayersControl.BaseLayer>
@@ -50,6 +55,7 @@ function App() {
               <Marker
                 key={tsla.id}
                 position={[tsla.gps.latitude, tsla.gps.longitude]}
+                icon={bottle}
               >
                 <Popup position={[tsla.gps.latitude, tsla.gps.longitude]}>
                   <div>
@@ -58,6 +64,7 @@ function App() {
                     <p>{"Number of Charging Stations: " + tsla.stallCount}</p>
                   </div>
                 </Popup>
+                
               </Marker>
             ))}
           </LayerGroup>
