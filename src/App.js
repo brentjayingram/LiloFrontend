@@ -44,7 +44,7 @@ function App() {
           />
         </LayersControl.BaseLayer>
         {/* Toggle the plastic trash and map over them */}
-        <LayersControl.Overlay name="Plastic Trash">
+        <LayersControl.Overlay checked name="Plastic Trash">
           <LayerGroup>
             {filteredStations.map((tsla) => (
               <Marker
