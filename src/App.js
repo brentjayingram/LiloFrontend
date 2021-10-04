@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import PlasticMap from './components/PlasticMap';
 import Header from './components/Header';
-import Logo from './images/logo.png'
+import Logo from './images/logo.png';
 
 
 function App() {
