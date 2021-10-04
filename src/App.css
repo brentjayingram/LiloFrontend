@@ -4,7 +4,7 @@
   height: 100vh;
   background: black;
 }
-.test {
+.container {
   background-color: rgb(221, 221, 216);
   display:flex;
   justify-content: space-between;
