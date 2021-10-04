@@ -1,15 +1,19 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header';
 import PlasticMap from './components/PlasticMap';
+import Header from './components/Header';
+import logo from './images/logo.png'
 
 
 function App() {
   return (
     <div>
       <Header/>
-      <PlasticMap/>
-
+      <div className="test">
+        <img className="logo" src={logo} alt="Logo" />
+        <PlasticMap/>
+      </div>
+      
     </div>
   );
 }

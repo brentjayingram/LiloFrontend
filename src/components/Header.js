@@ -9,9 +9,9 @@ const Header = () => {
     return (
     <AppBar position="fixed">
     <Toolbar variant="dense">
-        <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+        {/* <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
         <MenuIcon />
-        </IconButton>
+        </IconButton> */}
         <Typography variant="h6" color="inherit" component="div">
         Team Lilo Marine Debris Monitor
         </Typography>
