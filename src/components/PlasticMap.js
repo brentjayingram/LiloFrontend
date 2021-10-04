@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup } fro
 import { Icon } from "leaflet";
 import axios from 'axios';
  
-const baseURL = "https://vud0da6u2c.execute-api.us-east-2.amazonaws.com/beta/plasticdata/09-22-21";
+const baseURL = "https://vud0da6u2c.execute-api.us-east-2.amazonaws.com/beta/plasticdata/2019-04-29";
 //plastic is just a variable
  
  
@@ -26,7 +26,7 @@ export default function PlasticMap() {
   }
   return (
  
-    <MapContainer zoomControl={false} center={center} zoom={10} scrollWheelZoom={true}>
+    <MapContainer zoomControl={false} center={center} zoom={4} scrollWheelZoom={true}>
       {/* different map types */}
       <LayersControl position="bottomright">
         <LayersControl.BaseLayer checked name="Default">
@@ -86,7 +86,7 @@ export default function PlasticMap() {
  
  
     //layers locations
-     const center = [34.14418154991984, -118.11822015902482]
+     const center = [31.00428, -29.86510]
  
     //bottle marker size on map
     const bottle = new Icon({
