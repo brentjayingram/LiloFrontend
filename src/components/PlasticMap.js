@@ -1,30 +1,31 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup } from 'react-leaflet';
 import { Icon } from "leaflet";
-import plasticData from '../data/tesla.json';
 import axios from 'axios';
-
+ 
 const baseURL = "https://vud0da6u2c.execute-api.us-east-2.amazonaws.com/beta/plasticdata/09-22-21";
 //plastic is just a variable
-const filteredStations = plasticData.filter(date=> date.description === "small")
-
-
-console.log(plasticData)
-
+ 
+ 
+ 
 export default function PlasticMap() {
-  const [date, setDates] = React.useState(null);
-
+  const [plasticObj, setPlasticObject] = React.useState(null);
+ 
   React.useEffect(() => {
     axios.get(baseURL).then((response) => {
-      setDates(response.data);
-      // console.log(response.data);
+      console.log(response.data)
+      console.log(response.data["date"])
+      console.log(response.data["plastic_cluster_data"])
+ 
+      setPlasticObject(response.data);
     });
   }, []);
-
-  if (!date) return null;
-
+ 
+  if (!plasticObj) {
+    return null;
+  }
   return (
-    
+ 
     <MapContainer zoomControl={false} center={center} zoom={10} scrollWheelZoom={true}>
       {/* different map types */}
       <LayersControl position="bottomright">
@@ -55,22 +56,24 @@ export default function PlasticMap() {
         {/* Toggle the plastic trash and map over them */}
         <LayersControl.Overlay checked name="Plastic Trash">
           <LayerGroup>
-          {filteredStations.map((date) => (
-
+          {plasticObj["plastic_cluster_data"].map((plastic) => (
+ 
                <Marker
-                key={date.id}
-                position={[date.lat, date.long]}
+                key={plastic}
+                position={[plastic["lat"], plastic["long"]]}
                 icon={bottle}
               >
-                <Popup position={[date.lat, date.long]}>
+                <Popup position={[plastic.lat, plastic.long]}>
                   <div>
-                    <h2>{"size: " + date.description}</h2>
-                    
+                    <h2>{"Size: " + plastic.description}</h2>
+                    <h2>{"Latitude: " + plastic.lat}</h2>
+                    <h2>{"Longitude: " + plastic.long}</h2>
+                    <h2>{"Time: " + plastic.timestamp}</h2>
                   </div>
                 </Popup>
-                
+ 
               </Marker> 
-              
+ 
               ))}
           </LayerGroup>
         </LayersControl.Overlay>
@@ -78,23 +81,17 @@ export default function PlasticMap() {
     </MapContainer>
   );
 }
-
-
-
-   
+ 
+ 
+ 
+ 
     //layers locations
      const center = [34.14418154991984, -118.11822015902482]
-    
+ 
     //bottle marker size on map
     const bottle = new Icon({
       iconUrl: '/bottle.png',
       iconSize: [25, 40]
     });
-  
+ 
     // console.log(plasticData)
-
-
-
-    
-  
-  
