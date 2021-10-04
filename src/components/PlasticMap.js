@@ -26,7 +26,7 @@ export default function PlasticMap() {
   }
   return (
  
-    <MapContainer zoomControl={false} center={center} zoom={4} scrollWheelZoom={true}>
+    <MapContainer zoomControl={false} center={center} zoom={5} scrollWheelZoom={true}>
       {/* different map types */}
       <LayersControl position="bottomright">
         <LayersControl.BaseLayer checked name="Default">
@@ -86,7 +86,7 @@ export default function PlasticMap() {
  
  
     //layers locations
-     const center = [31.00428, -29.86510]
+     const center = [28.1009, -15.4654]
  
     //bottle marker size on map
     const bottle = new Icon({
