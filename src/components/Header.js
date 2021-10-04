@@ -13,7 +13,7 @@ const Header = () => {
         <MenuIcon />
         </IconButton>
         <Typography variant="h6" color="inherit" component="div">
-        Lilo
+        Team Lilo Marine Debris Monitor
         </Typography>
     </Toolbar>
     </AppBar>
