@@ -22,9 +22,9 @@ const PlasticMap = () => {
     return (
   
   
-      <MapContainer center={center} zoom={10} scrollWheelZoom={true}>
+      <MapContainer zoomControl={false} center={center} zoom={10} scrollWheelZoom={true}>
         {/* different map types */}
-        <LayersControl position="topright">
+        <LayersControl position="bottomright">
           <LayersControl.BaseLayer checked name="Default">
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

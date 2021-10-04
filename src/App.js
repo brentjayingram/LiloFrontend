@@ -1,11 +1,16 @@
 import React from 'react';
 import './App.css';
+import Header from './components/Header';
 import PlasticMap from './components/PlasticMap';
 
 
 function App() {
   return (
-    <PlasticMap/>
+    <div>
+      <Header/>
+      <PlasticMap/>
+
+    </div>
   );
 }
 
