@@ -1,6 +1,6 @@
 
 .leaflet-container{
-  width: 80vw;
+  width: 300vw;
   height: 100vh;
   background: black;
 }
@@ -8,8 +8,16 @@
   background-color: rgb(221, 221, 216);
   display:flex;
   justify-content: space-between;
+  align-items: left;
+}
+
+.tcontainer {
+  background-color: rgb(221, 221, 216);
+  display:flex;
+  justify-content: space-between;
   align-items: center;
 }
+
 
 .logo {
   max-width: 400px;

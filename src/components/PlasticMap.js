@@ -1,22 +1,42 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup } from 'react-leaflet';
+import React, { useReducer } from 'react';
+import { useMapEvent, useMap, MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup } from 'react-leaflet';
 import { Icon } from "leaflet";
 import axios from 'axios';
- 
-const baseURL = "https://vud0da6u2c.execute-api.us-east-2.amazonaws.com/beta/plasticdata/2019-04-29";
 //plastic is just a variable
- 
- 
- 
-export default function PlasticMap() {
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+const options = [
+    '2019-04-29', '09-22-21', '2018-10-30', '09-29-21'
+  ];
+const defaultOption = options[3];
+const baseURL = "https://vud0da6u2c.execute-api.us-east-2.amazonaws.com/beta/plasticdata/";
+
+// function MyComponent({lat, long}) {
+//   const map = useMapEvent('click', () => {
+//     console.log(lat)
+//   console.log(long)
+//   map.setCenter([50.5, 30.5])
+// })
+// return null
+// }
+var targetLat = ""
+var targetLong = ""
+const PlasticMap = () => {
+  const componentDidUpdate = () => {
+    console.log("Component did update")
+}
+  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+
   const [plasticObj, setPlasticObject] = React.useState(null);
- 
+  const [date, setDate] = React.useState("09-22-21");
+  //const { date, setDate } = useSharedFormState();
+  //console.log(date)
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    console.log("MAKING API CALL")
+    axios.get(baseURL + date).then((response) => {
       console.log(response.data)
       console.log(response.data["date"])
       console.log(response.data["plastic_cluster_data"])
- 
       setPlasticObject(response.data);
     });
   }, []);
@@ -24,9 +44,32 @@ export default function PlasticMap() {
   if (!plasticObj) {
     return null;
   }
+  const _onSelect = (option) => {
+    console.log('You selected ', option.label)
+    //const { date, setDate } = useSharedFormState();
+    //setDate(option.label)
+    var newDate = option.label
+    console.log("new date! " + newDate)
+    setDate(newDate)
+    forceUpdate();
+    axios.get(baseURL + newDate).then((response) => {
+      console.log(response.data)
+      console.log(response.data["date"])
+      console.log(response.data["plastic_cluster_data"][0])
+      center = [response.data["plastic_cluster_data"][0]["lat"], response.data["plastic_cluster_data"][0]["long"]]
+      setPlasticObject(response.data);
+      targetLat = center[0]
+      targetLong = center[1]
+
+    });
+  }
+
   return (
- 
+    <div>
+  <Dropdown options={options} onChange={_onSelect} value={defaultOption} placeholder="Select an option" />
     <MapContainer zoomControl={false} center={center} zoom={5} scrollWheelZoom={true}>
+    {/* <MyComponent lat={targetLat} long={targetLong}/> */}
+
       {/* different map types */}
       <LayersControl position="bottomright">
         <LayersControl.BaseLayer checked name="Default">
@@ -54,12 +97,14 @@ export default function PlasticMap() {
           />
         </LayersControl.BaseLayer>
         {/* Toggle the plastic trash and map over them */}
+
         <LayersControl.Overlay checked name="Plastic Trash">
           <LayerGroup>
-          {plasticObj["plastic_cluster_data"].map((plastic) => (
- 
+
+          {plasticObj["plastic_cluster_data"].map((plastic, i) => (
+
                <Marker
-                key={plastic}
+                key={i}
                 position={[plastic["lat"], plastic["long"]]}
                 icon={bottle}
               >
@@ -78,15 +123,17 @@ export default function PlasticMap() {
           </LayerGroup>
         </LayersControl.Overlay>
       </LayersControl>
+
     </MapContainer>
+    </div>
   );
 }
  
- 
+export default PlasticMap;
  
  
     //layers locations
-     const center = [28.1009, -15.4654]
+     var center = [28.807703,-90.194370]
  
     //bottle marker size on map
     const bottle = new Icon({
