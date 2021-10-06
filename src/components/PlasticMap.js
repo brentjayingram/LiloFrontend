@@ -24,7 +24,7 @@ const PlasticMap = () => {
 
 
   const [plasticObj, setPlasticObject] = React.useState(null);
-  const [date, setDate] = React.useState("09-22-21");
+  const [date, setDate] = React.useState("09-29-21");
   //const { date, setDate } = useSharedFormState();
   //console.log(date)
   React.useEffect(() => {
