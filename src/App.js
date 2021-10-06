@@ -1,20 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import './App.css';
 import PlasticMap from './components/PlasticMap';
 import Header from './components/Header';
 import Logo from './images/logo.png';
 
-import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import { useBetween } from "use-between";
-// Make a custom hook with your future shared state
-const options = [
-  'one', 'two', 'three'
-];
-
-const defaultOption = options[0];
 const App = () => {
-
 
   return (
     <div>

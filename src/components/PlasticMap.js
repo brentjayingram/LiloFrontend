@@ -1,5 +1,5 @@
-import React, { useReducer } from 'react';
-import { useMapEvent, useMap, MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup } from 'react-leaflet';
+import React from 'react';
+import { MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup } from 'react-leaflet';
 import { Icon } from "leaflet";
 import axios from 'axios';
 //plastic is just a variable
@@ -19,13 +19,9 @@ const baseURL = "https://vud0da6u2c.execute-api.us-east-2.amazonaws.com/beta/pla
 // })
 // return null
 // }
-var targetLat = ""
-var targetLong = ""
+
 const PlasticMap = () => {
-  const componentDidUpdate = () => {
-    console.log("Component did update")
-}
-  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+
 
   const [plasticObj, setPlasticObject] = React.useState(null);
   const [date, setDate] = React.useState("09-22-21");
@@ -39,7 +35,9 @@ const PlasticMap = () => {
       console.log(response.data["plastic_cluster_data"])
       setPlasticObject(response.data);
     });
-  }, []);
+  }, [date] //MAKE SURE TO ADD DATE HERE OR ELSE USE EFFECT AND THE API IS CALLED A BUNCH WTF
+  //REACT IS BAD
+  );
  
   if (!plasticObj) {
     return null;
@@ -51,15 +49,12 @@ const PlasticMap = () => {
     var newDate = option.label
     console.log("new date! " + newDate)
     setDate(newDate)
-    forceUpdate();
     axios.get(baseURL + newDate).then((response) => {
       console.log(response.data)
       console.log(response.data["date"])
       console.log(response.data["plastic_cluster_data"][0])
       center = [response.data["plastic_cluster_data"][0]["lat"], response.data["plastic_cluster_data"][0]["long"]]
       setPlasticObject(response.data);
-      targetLat = center[0]
-      targetLong = center[1]
 
     });
   }
