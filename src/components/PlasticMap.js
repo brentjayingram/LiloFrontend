@@ -6,9 +6,9 @@ import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 const options = [
-    '2019-04-29', '09-22-21', '2018-10-30', '09-29-21'
+    '2019-04-29', '09-22-21', '09-29-21'
   ];
-const defaultOption = options[3];
+const defaultOption = options[2];
 const baseURL = "https://vud0da6u2c.execute-api.us-east-2.amazonaws.com/beta/plasticdata/";
 
 // function MyComponent({lat, long}) {
@@ -96,7 +96,7 @@ const PlasticMap = () => {
         <LayersControl.Overlay checked name="Plastic Trash">
           <LayerGroup>
 
-          {plasticObj["plastic_cluster_data"].map((plastic, i) => (
+          {plasticObj["plastic_cluster_data"].filter(plast => !plast.description.includes("0.000")).map((plastic, i) => (
 
                <Marker
                 key={i}
@@ -128,7 +128,7 @@ export default PlasticMap;
  
  
     //layers locations
-     var center = [28.807703,-90.194370]
+     var center = [28.807703,-50.194370]
  
     //bottle marker size on map
     const bottle = new Icon({
