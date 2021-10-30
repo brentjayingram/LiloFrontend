@@ -1,7 +1,7 @@
 
 .leaflet-container{
   width: 80vw;
-  height: 90vh;
+  height: 97.5vh;
   background: black;
 }
 .container {
@@ -24,3 +24,8 @@
   max-height: 350px;
   align-items: center;
 }
+
+.app-description {
+  margin:1rem;
+}
+
