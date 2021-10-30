@@ -7,7 +7,7 @@ const Sidebar = () => {
       <div className="imageContainer">
         <img className="logo" src={Logo} alt="Logo" />
         <div className="app-description">
-            <p class="text-align:center">
+            <p className="text-align:center">
             <b>
                 Lilo is an app for monitoring plastic marine debris (detected from
                 space)
